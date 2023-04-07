@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import Modal from "./Modal";
 import Button from "../Button";
 import Heading from "../Heading";
@@ -17,6 +18,7 @@ import Input from "../inputs/Input";
 const RegisterModal = () => {
     const [isLoading, setIsLoading] = useState(false);
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
     const { register, handleSubmit, formState:{errors,},} = useForm<FieldValues>({
         defaultValues: {
             name: '',
@@ -41,8 +43,9 @@ const RegisterModal = () => {
     }
 
     const onToggle = useCallback(() => {
-
-    },[registerModal])
+        registerModal.onClose();
+        loginModal.onOpen();
+    },[registerModal, loginModal])
 
     const bodyContent = (
         <div className="flex flex-col gap-4">
