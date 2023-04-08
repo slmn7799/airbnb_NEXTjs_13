@@ -7,9 +7,16 @@ import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { SafeUser } from "@/app/types";
+import { signOut } from "next-auth/react";
 
+interface UserMenuProps {
+  currentUser?: SafeUser | null
+}
 
-const UserMenu = () => {
+const UserMenu: React.FC<UserMenuProps> = ({
+  currentUser
+}) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const registerModal = useRegisterModal();
@@ -33,10 +40,16 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
             <div className="flex flex-col cursor-pointer">
+              {currentUser ? (
                 <>
-                <MenuItem label="Login" onClick={loginModal.onOpen} />
-                <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                  <MenuItem label="Logout" onClick={() => signOut()} />
                 </>
+              ): (
+                <>
+                  <MenuItem label="Login" onClick={loginModal.onOpen} />
+                  <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                </>
+              )}
             </div>
         </div>
       )}
