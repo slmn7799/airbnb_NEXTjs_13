@@ -7,6 +7,15 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
 import prisma from '@/app/libs/prismadb';
 
+// export default NextAuth({
+//   providers: [
+//     GithubProvider({
+//       clientId: process.env.GITHUB_ID as string,
+//       clientSecret: process.env.GITHUB_SECRET as string,
+//     }),
+//   ],
+// })
+
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
