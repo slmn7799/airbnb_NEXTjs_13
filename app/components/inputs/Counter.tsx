@@ -25,7 +25,7 @@ const Counter:React.FC<CounterProps> = ({
         return;
     }
     onChange( value - 1);
-  },[onchange, value]);
+  },[onChange, value]);
   
 
   return (
